@@ -26,25 +26,6 @@ public class ClienteNewDTO implements Serializable {
 
 	}
 
-	public ClienteNewDTO(String nome, String email, String cpfOuCnpj, Integer tipo, String logradouro, String numero,
-			String complemento, String bairro, String cep, String telefone1, String telefone2, String telefone3,
-			Integer cidadeId) {
-		super();
-		this.nome = nome;
-		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cep = cep;
-		this.telefone1 = telefone1;
-		this.telefone2 = telefone2;
-		this.telefone3 = telefone3;
-		this.cidadeId = cidadeId;
-	}
-
 	public String getNome() {
 		return nome;
 	}
