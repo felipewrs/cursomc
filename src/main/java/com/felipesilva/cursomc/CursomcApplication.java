@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.felipesilva.cursomc.domain.Categoria;
 import com.felipesilva.cursomc.domain.Cidade;
@@ -33,6 +34,9 @@ import com.felipesilva.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -94,7 +98,7 @@ public class CursomcApplication implements CommandLineRunner {
 		cat5.getProdutos().addAll(Arrays.asList(p8));
 		cat6.getProdutos().addAll(Arrays.asList(p9, p10));
 		cat7.getProdutos().addAll(Arrays.asList(p11));
-		
+
 		p1.getCategorias().addAll(Arrays.asList(cat1, cat4));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4));
 		p3.getCategorias().addAll(Arrays.asList(cat1, cat4));
@@ -123,7 +127,8 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,
+				pe.encode("123"));
 
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
@@ -143,7 +148,8 @@ public class CursomcApplication implements CommandLineRunner {
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 
-		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),
+				null);
 		ped2.setPagamento(pagto2);
 
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
@@ -162,7 +168,7 @@ public class CursomcApplication implements CommandLineRunner {
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 
-		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));	
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 
